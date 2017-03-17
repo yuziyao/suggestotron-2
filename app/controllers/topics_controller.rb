@@ -5,6 +5,7 @@ class TopicsController < ApplicationController
   # GET /topics.json
   def index
     @topics = Topic.all
+    @topics = @topics.sort_by{ |topic| topic.votes.count }.reverse
   end
 
   # GET /topics/1
@@ -67,7 +68,7 @@ class TopicsController < ApplicationController
   redirect_to(topics_path)
   end
 
-def downvode
+def downvote
   @topic = Topic.find(params[:id])
   @topic.votes.first.destroy
   redirect_to(topics_path)
